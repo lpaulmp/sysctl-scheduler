@@ -1,0 +1,10 @@
+[Unit]
+Description=Run test app
+
+[Service]
+ExecStart=/opt/app.py
+User=root
+WorkingDirectory=/opt/
+
+[Install]
+WantedBy=default.target

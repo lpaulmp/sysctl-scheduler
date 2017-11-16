@@ -1,0 +1,33 @@
+---
+- name: Create user
+  user:
+    name: privileged
+    shell: /bin/bash
+    groups: sudo
+    append: yes
+
+- name: Enable port 80
+  firewalld:
+    port: 80/tcp
+    permanent: true
+    state: disabled
+
+- name: Upload file app
+  template:
+    src: app.py.j2
+    dest: /opt/app.py
+
+- name: Copy service
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - { src: app.service, dest: /lib/systemd/system/app.service }
+      #    - { src: app.timer, dest: /lib/systemd/system/app.timer}
+
+- name: Enable rank.timer
+  systemd:
+    name: app.service
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
