@@ -1,2 +1,3 @@
 # sysctl-scheduler
-Systctl schedulers
+Sysctl schedulers
+Test sysctl options in vagrant
