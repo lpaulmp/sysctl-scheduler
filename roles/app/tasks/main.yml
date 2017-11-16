@@ -6,6 +6,14 @@
     groups: sudo
     append: yes
 
+- name: Install firewalld
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+  with_items:
+    - htop
+    - firewalld
+
 - name: Enable port 80
   firewalld:
     port: 80/tcp
@@ -22,10 +30,10 @@
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
   with_items:
-    - { src: app.service, dest: /lib/systemd/system/app.service }
-      #    - { src: app.timer, dest: /lib/systemd/system/app.timer}
+    - { src: app.service.j2, dest: /lib/systemd/system/app.service }
+      #    - { src: app.timer.j2, dest: /lib/systemd/system/app.timer}
 
-- name: Enable rank.timer
+- name: Enable app service
   systemd:
     name: app.service
     state: restarted
