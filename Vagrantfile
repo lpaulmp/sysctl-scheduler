@@ -5,7 +5,8 @@ Vagrant.configure(2) do |config|
   config.vm.box = "debian/jessie64"
 
   config.vm.provider "virtualbox" do |v|
-    v.customomize ["modifyvm", :id, "--cpuexecutioncap", "10"]
+    v.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
+    v.cpus = 1
     v.memory = "256"
   end
 
@@ -15,6 +16,7 @@ Vagrant.configure(2) do |config|
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "app.yml"
     ansible.inventory_path = "hosts"
+    ansible.limit= "test"
     ansible.become = true
   end
 end
