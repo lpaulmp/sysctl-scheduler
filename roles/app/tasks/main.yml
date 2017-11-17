@@ -6,24 +6,15 @@
     groups: sudo
     append: yes
 
-- name: Install firewalld
+- name: Install packages
   apt:
     name: "{{ item }}"
     update_cache: yes
   with_items:
+    - curl
     - htop
-    - firewalld
-
-- name: Enable port 80
-  firewalld:
-    port: 80/tcp
-    permanent: true
-    state: disabled
-
-- name: Upload file app
-  template:
-    src: app.py.j2
-    dest: /opt/app.py
+    - python3
+    - vim
 
 - name: Copy service
   template:
