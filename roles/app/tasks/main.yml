@@ -20,9 +20,10 @@
   template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
+    mode: 755
   with_items:
     - { src: app.service.j2, dest: /lib/systemd/system/app.service }
-      #    - { src: app.timer.j2, dest: /lib/systemd/system/app.timer}
+    - { src: stress-cpu.py.j2, dest: /opt/stress-cpu.py}
 
 - name: Enable app service
   systemd:
