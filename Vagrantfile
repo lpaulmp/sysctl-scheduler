@@ -5,9 +5,9 @@ Vagrant.configure(2) do |config|
   config.vm.box = "debian/jessie64"
 
   config.vm.provider "virtualbox" do |v|
-    v.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
+    v.customize ["modifyvm", :id, "--cpuexecutioncap", "10"]
     v.cpus = 1
-    v.memory = "256"
+    v.memory = "150"
   end
 
   config.vm.network "forwarded_port", guest: 80, host: 8080
