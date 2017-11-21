@@ -24,6 +24,14 @@
   with_items:
     - { src: app.service.j2, dest: /lib/systemd/system/app.service }
     - { src: stress-cpu.py.j2, dest: /opt/stress-cpu.py}
+    - { src: sched_tune.j2, dest: /opt/sched_tune}
+
+- name: Cron to load cpu
+  cron:
+    name: "Load CPU"
+    minute: "*/1"
+    hour: "*"
+    job: "/opt/stress-cpu.py"
 
 - name: Enable app service
   systemd:
